@@ -1,0 +1,2 @@
+#Ignore les fichiers de configuration de webpack
+/node_modules
