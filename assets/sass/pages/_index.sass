@@ -50,20 +50,41 @@ header
             border-radius: 10px
 
 main
+    background-color: $color-secondary-light
+
+#recipes
     display: flex
     justify-content: space-between
     flex-wrap: wrap
-    background-color: grey
+    margin: 0 60px
 
 .recipe
     flex: 0 0 31%
-    height: 30%
-    border-radius: 10px
+    height: 40%
     position: relative
+    background-color: white
+    border-radius: 15px
+    margin-top: 25px
+    &__content
+        padding: 20px
+        display: flex
+        flex-direction: column
+    &__title
+        +anton-font
+        color: black
+        font-size: 1.1em
+    &__text
+        height: 90px
+        overflow: hidden
+        &-title
+            color: $color-secondary
+            font-size: 0.8em
     &__img
         width: 100%
         height: 200px
         object-fit: cover
+        border-top-left-radius: 15px
+        border-top-right-radius: 15px
         &-overlay
             z-index: 3
             position: absolute
@@ -73,8 +94,18 @@ main
             top: 7%
             right: 7%
             font-size: 0.7em
-            //margin-left: 18%
-            //margin-top: 1%
+    &__ingredients
+        //flex: 0 0 48% 
+        display: flex
+        flex-direction: row
+        flex-wrap: wrap
+        justify-content: space-between
+        &-context
+            width: 50%
+        &-subtext
+            color: $color-secondary
+               
+
             
 
 

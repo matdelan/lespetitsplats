@@ -2,17 +2,18 @@ import * as classRecipe from "./Recipe"
 
 export class BookRecipes {
     
-    constructor(jsonData){
+    constructor(jsonData, id){
         this.recipes = []
         jsonData.forEach(element => {
             this.recipes.push(new classRecipe.Recipe(element))
         })
+        this.id = id
     }
 
     initializeDom() {
-        const main = document.querySelector("main")
+        const recipes = document.getElementById(this.id)
         this.recipes.forEach(element => {
-                main.appendChild(element.domItem)
+            recipes.appendChild(element.domItem)
         })
     }
 }
