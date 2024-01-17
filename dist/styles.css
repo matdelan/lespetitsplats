@@ -54,7 +54,8 @@ header {
     line-height: normal;
     font-size: 1.6em;
     text-align: center;
-    width: 55%; }
+    width: 55%;
+    margin-bottom: 15px; }
 
 .header__subcontent {
   width: 66%;
@@ -89,11 +90,10 @@ main {
 
 .recipe {
   flex: 0 0 31%;
-  height: 40%;
   position: relative;
   background-color: white;
   border-radius: 15px;
-  margin-top: 25px; }
+  margin-top: 80px; }
   .recipe__content {
     padding: 20px;
     display: flex;
@@ -113,7 +113,7 @@ main {
       font-size: 0.8em; }
   .recipe__img {
     width: 100%;
-    height: 200px;
+    height: 250px;
     -o-object-fit: cover;
        object-fit: cover;
     border-top-left-radius: 15px;
@@ -124,16 +124,76 @@ main {
       background-color: #FFD15B;
       padding: 5px 15px;
       border-radius: 10px;
-      top: 7%;
+      top: 3%;
       right: 7%;
       font-size: 0.7em; }
   .recipe__ingredients {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between; }
+    justify-content: space-between;
+    margin-bottom: 20px; }
     .recipe__ingredients-context {
-      width: 50%; }
+      width: 50%;
+      margin: 10px 0; }
     .recipe__ingredients-subtext {
       color: #7a7a7a; }
+
+#select {
+  display: flex; }
+
+.select {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  z-index: 500;
+  padding: 0;
+  border: none;
+  border-radius: 10px;
+  margin-top: 15px; }
+  .select__label {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin: 0 30px 0 100px; }
+  .select__item {
+    justify-content: space-between;
+    font-size: 0.9em;
+    color: black;
+    padding: 5px;
+    width: 165px;
+    height: 35px;
+    font-weight: 300;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    background-color: white; }
+    .select__item-first {
+      border-radius: 10px; }
+    .select__item p {
+      padding-left: 20px; }
+    .select__item i {
+      margin-right: 12px; }
+    .select__item-list {
+      display: none;
+      position: relative; }
+      .select__item-list::before {
+        content: "";
+        position: absolute;
+        right: 10%;
+        left: 10%;
+        top: 0;
+        border-top: 1px solid black; }
+  .select__section {
+    margin: 30px 0 30px 0px;
+    display: flex;
+    align-items: center; }
+    .select__section-absolute {
+      margin-top: -80px; }
+  .select__ingredients {
+    left: 8%; }
+  .select__appareils {
+    left: 33%; }
+  .select__ustensiles {
+    left: 58%; }
 

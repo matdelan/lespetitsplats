@@ -74,13 +74,16 @@ export class Select {
      */
     _buildMenuItem(index) {
         const entry = document.createElement("li");
-        const chevronDown = document.createElement("i");
+        let chevronDown = null
 
         if (index !== 0) {
             entry.classList.add("select__item-list");
             entry.setAttribute("role", "listbox");
         } else {
+            chevronDown = document.createElement("i");
             chevronDown.classList.add("fa-solid");
+            entry.classList.add("select__item-first");
+            chevronDown.classList.add("fa-chevron-down");
         }
 
         entry.classList.add("select__item");
@@ -93,11 +96,9 @@ export class Select {
         const p = document.createElement("p");
         p.textContent = this.list[index];
         entry.appendChild(p);
-
-        chevronDown.classList.add("invisible");
-        chevronDown.classList.add("fa-chevron-down");
-
-        entry.appendChild(chevronDown);
+        
+        if(chevronDown !== null)
+            entry.appendChild(chevronDown);
 
         this.domItem.appendChild(entry);
         this.domItemList.push(entry);
