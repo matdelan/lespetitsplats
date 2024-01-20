@@ -5,6 +5,10 @@ export class Recipe {
      * @param {Array} recipe - JSON recipe item
      */
     constructor(recipe) {
+        /* LOGICAL VARIABLES */
+        this.display = true
+
+        /* Load data from JSON */
         const $pathImg = "../assets/img/recipes/"
         this.id = recipe.id
         this.name = recipe.name

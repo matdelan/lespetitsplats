@@ -9,9 +9,7 @@ console.log(book)
 
 book.initializeDom()
 
-const selectIngredients = homeBuildBookRecipes.buildSelectIngredients(book)
-const selectAppliance = homeBuildBookRecipes.buildSelectAppliance(book)
-const selectUstensils = homeBuildBookRecipes.buildSelectUstensils(book)
+
 
 
 

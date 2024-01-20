@@ -62,7 +62,8 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: grey; }
+  color: grey;
+  position: relative; }
   .header__subcontent-input {
     color: grey;
     font-size: 1em;
@@ -74,10 +75,12 @@ header {
   .header__subcontent-searchicon {
     background-color: black;
     padding: 8px;
-    margin-left: -45px;
     z-index: 1;
     font-size: 1.3em;
-    border-radius: 10px; }
+    border-radius: 10px;
+    position: absolute;
+    right: 0;
+    margin-right: 10px; }
 
 main {
   background-color: #EBEBEB; }
@@ -86,14 +89,14 @@ main {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin: 0 60px; }
+  margin: 60px 60px; }
 
 .recipe {
   flex: 0 0 31%;
   position: relative;
   background-color: white;
   border-radius: 15px;
-  margin-top: 80px; }
+  margin-top: 30px; }
   .recipe__content {
     padding: 20px;
     display: flex;
@@ -134,7 +137,7 @@ main {
     justify-content: space-between;
     margin-bottom: 20px; }
     .recipe__ingredients-context {
-      width: 50%;
+      width: 48%;
       margin: 10px 0; }
     .recipe__ingredients-subtext {
       color: #7a7a7a; }
@@ -146,12 +149,12 @@ main {
   display: flex;
   align-items: center;
   flex-direction: column;
-  position: absolute;
   z-index: 500;
   padding: 0;
   border: none;
   border-radius: 10px;
-  margin-top: 15px; }
+  margin-top: 15px;
+  position: absolute; }
   .select__label {
     font-weight: bold;
     font-size: 1.2em;
@@ -175,15 +178,7 @@ main {
     .select__item i {
       margin-right: 12px; }
     .select__item-list {
-      display: none;
-      position: relative; }
-      .select__item-list::before {
-        content: "";
-        position: absolute;
-        right: 10%;
-        left: 10%;
-        top: 0;
-        border-top: 1px solid black; }
+      display: none; }
   .select__section {
     margin: 30px 0 30px 0px;
     display: flex;
@@ -191,9 +186,9 @@ main {
     .select__section-absolute {
       margin-top: -80px; }
   .select__ingredients {
-    left: 8%; }
+    left: 60px; }
   .select__appareils {
-    left: 33%; }
+    left: 280px; }
   .select__ustensiles {
-    left: 58%; }
+    left: 500px; }
 

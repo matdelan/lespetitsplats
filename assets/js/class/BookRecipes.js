@@ -1,4 +1,5 @@
 import * as classRecipe from "./Recipe"
+import * as utilitySelect from "../utility/select"
 
 export class BookRecipes {
     
@@ -8,6 +9,13 @@ export class BookRecipes {
             this.recipes.push(new classRecipe.Recipe(element))
         })
         this.id = id
+        //search input
+        this.input = document.querySelector("input")
+        /* SELECT INITIALISE */
+        this.selectIngredients = this.buildSelectIngredients()
+        this.selectAppliance = this.buildSelectAppliance()
+        this.selectUstensils = this.buildSelectUstensils()
+        
     }
 
     initializeDom() {
@@ -51,5 +59,58 @@ export class BookRecipes {
         })
 
         return result
+    }
+    /* INITIATE SELECT */
+    buildSelectIngredients() {
+        
+        const selectIngredients = new utilitySelect.Select(".select__ingredients", this.getIngredientsArray())
+        /* ADD Events */
+        selectIngredients.domItemList.forEach((domItem) => domItem.addEventListener("click", function() {
+            if (!selectIngredients.deploy) {
+                selectIngredients.showSelectList();
+            } else  {
+                selectIngredients.closeListItem();
+            }
+        }))
+
+        return selectIngredients
+    }
+    buildSelectAppliance() {
+        
+        const selectAppliance = new utilitySelect.Select(".select__appareils", this.getApplianceArray())
+        /* ADD Events */
+        selectAppliance.domItemList.forEach((domItem) => domItem.addEventListener("click", function() {
+            if (!selectAppliance.deploy) {
+                selectAppliance.showSelectList();
+            } else  {
+                selectAppliance.closeListItem();
+            }
+        }))
+
+        return selectAppliance
+    }
+    buildSelectUstensils() {
+        
+        const selectUstensils = new utilitySelect.Select(".select__ustensiles", this.getUstensilsArray())
+        /* ADD Events */
+        selectUstensils.domItemList.forEach((domItem) => domItem.addEventListener("click", function() {
+            if (!selectUstensils.deploy) {
+                selectUstensils.showSelectList();
+            } else  {
+                selectUstensils.closeListItem();
+            }
+        }))
+
+        return selectUstensils
+    }
+
+    searchRecipes() {
+
+    }
+    synchroNomberRecipe() {
+
+    }
+    refreshDisplay() {
+
     }
 }
