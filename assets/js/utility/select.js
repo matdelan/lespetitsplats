@@ -44,7 +44,7 @@ export class Select {
          * @type {number}
          * @private
          */
-        this._tabIndexStart = 6;
+        this._tabIndexStart = 1;
 
         /**
          * Initializes the select component.
@@ -87,10 +87,7 @@ export class Select {
         }
 
         entry.classList.add("select__item");
-        entry.setAttribute("data-index", index);
         entry.style.setProperty("order", index + 1);
-        entry.setAttribute("tabindex", this._tabIndexStart);
-        entry.setAttribute("data-tabindex", this._tabIndexStart++);
         entry.setAttribute("aria-label", this.list[index]);
 
         const p = document.createElement("p");
@@ -101,7 +98,29 @@ export class Select {
             entry.appendChild(chevronDown);
 
         this.domItem.appendChild(entry);
-        this.domItemList.push(entry);
+        if (index == 0) {
+            const entrySearch = document.createElement("li")
+            const input = document.createElement("input")
+            entrySearch.classList.add("select__item-list")
+            entrySearch.classList.add("select__item-search")
+            entrySearch.classList.add("select__item")
+            entrySearch.style.setProperty("order", 2);
+            input.classList.add("select__input-" + this.list[0])
+            input.classList.add("select__input")
+            entrySearch.appendChild(input)
+            const icon = document.createElement("i")
+            icon.classList.add("fa-solid")
+            icon.classList.add("fa-magnifying-glass")
+            icon.classList.add("select__input-icon")
+            entrySearch.appendChild(icon)
+
+            this.domItem.appendChild(entrySearch)
+            this.domItemList.push(entry)
+            this.domItemList.push(entrySearch)
+        } else {
+            this.domItemList.push(entry);
+        }
+        
     }
 
     /**
@@ -126,11 +145,7 @@ export class Select {
                 this.domItemList[i].style.display = "flex";
                 this.domItemList[i].lastChild.classList.toggle("fa-chevron-down");
                 this.domItemList[i].lastChild.classList.toggle("fa-chevron-up");
-            }
-            if (parseInt(this.domItemList[i].getAttribute("tabindex")) !== -1) {
-                const temp = this.domItemList[i].getAttribute("tabindex");
-                this.domItemList[i].setAttribute("data-tabindex", temp);
-                this.domItemList[i].setAttribute("tabindex", "-1");
+                this.domItemList[i].classList.toggle("select__item-first");
             }
         }
         this.domItem.setAttribute("aria-expanded", "false");
@@ -147,11 +162,13 @@ export class Select {
                 this.domItemList[i].style.display = "flex";
             } else {
                 // Swap chevron
+                console.log(this.domItemList[i].lastChild)
                 this.domItemList[i].lastChild.classList.toggle("fa-chevron-down");
                 this.domItemList[i].lastChild.classList.toggle("fa-chevron-up");
+                this.domItemList[i].classList.toggle("select__item-first");
             }
-            const temp = this.domItemList[i].getAttribute("data-tabindex");
-            this.domItemList[i].setAttribute("tabindex", temp);
+            //const temp = this.domItemList[i].getAttribute("data-tabindex");
+            //this.domItemList[i].setAttribute("tabindex", temp);
         }
         this.domItem.setAttribute("aria-expanded", "true");
     }

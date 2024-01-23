@@ -10,12 +10,13 @@ export class BookRecipes {
         })
         this.id = id
         //search input
-        this.input = document.querySelector("input")
+        this.input = document.querySelector(".header__subcontent-input")
         /* SELECT INITIALISE */
         this.selectIngredients = this.buildSelectIngredients()
         this.selectAppliance = this.buildSelectAppliance()
         this.selectUstensils = this.buildSelectUstensils()
         
+        this.addEvents()
     }
 
     initializeDom() {
@@ -65,13 +66,13 @@ export class BookRecipes {
         
         const selectIngredients = new utilitySelect.Select(".select__ingredients", this.getIngredientsArray())
         /* ADD Events */
-        selectIngredients.domItemList.forEach((domItem) => domItem.addEventListener("click", function() {
+        selectIngredients.domItem.firstChild.addEventListener("click", function() {
             if (!selectIngredients.deploy) {
                 selectIngredients.showSelectList();
             } else  {
                 selectIngredients.closeListItem();
             }
-        }))
+        })
 
         return selectIngredients
     }
@@ -79,13 +80,13 @@ export class BookRecipes {
         
         const selectAppliance = new utilitySelect.Select(".select__appareils", this.getApplianceArray())
         /* ADD Events */
-        selectAppliance.domItemList.forEach((domItem) => domItem.addEventListener("click", function() {
+        selectAppliance.domItem.firstChild.addEventListener("click", function() {
             if (!selectAppliance.deploy) {
                 selectAppliance.showSelectList();
             } else  {
                 selectAppliance.closeListItem();
             }
-        }))
+        })
 
         return selectAppliance
     }
@@ -93,13 +94,13 @@ export class BookRecipes {
         
         const selectUstensils = new utilitySelect.Select(".select__ustensiles", this.getUstensilsArray())
         /* ADD Events */
-        selectUstensils.domItemList.forEach((domItem) => domItem.addEventListener("click", function() {
+        selectUstensils.domItem.firstChild.addEventListener("click", function() {
             if (!selectUstensils.deploy) {
                 selectUstensils.showSelectList();
             } else  {
                 selectUstensils.closeListItem();
             }
-        }))
+        })
 
         return selectUstensils
     }
@@ -107,10 +108,20 @@ export class BookRecipes {
     searchRecipes() {
 
     }
-    synchroNomberRecipe() {
+    synchroNumberRecipe() {
 
     }
     refreshDisplay() {
 
+    }
+    /* EVENTS */
+    addEvents() {
+
+        /* Input */
+        this.input.addEventListener("input", function(elem){
+            if(elem.target.value.length > 2){
+                console.log("ok")
+            }
+        })
     }
 }

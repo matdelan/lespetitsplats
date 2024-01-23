@@ -4,7 +4,7 @@ import * as dataRecipes from "../data/recipes"
 
 
 export function buildTabBookRecipes() {
-    /* DATA ORIGIN JS/DATA/ tableau JSON */
+    /* DATA ORIGIN JS/DATA/ table JSON + classList */
     const book = new classBookRecipes.BookRecipes(dataRecipes.recipes, "recipes")
 
     return book

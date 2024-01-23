@@ -96,7 +96,8 @@ main {
   position: relative;
   background-color: white;
   border-radius: 15px;
-  margin-top: 30px; }
+  margin-top: 30px;
+  box-shadow: 0px 4px 34px 30px rgba(0, 0, 0, 0.04); }
   .recipe__content {
     padding: 20px;
     display: flex;
@@ -154,7 +155,10 @@ main {
   border: none;
   border-radius: 10px;
   margin-top: 15px;
-  position: absolute; }
+  position: absolute;
+  height: 300px;
+  overflow: hidden;
+  overflow-y: auto; }
   .select__label {
     font-weight: bold;
     font-size: 1.2em;
@@ -174,17 +178,27 @@ main {
     .select__item-first {
       border-radius: 10px; }
     .select__item p {
-      padding-left: 20px; }
+      padding: 8px 0 8px 20px; }
     .select__item i {
       margin-right: 12px; }
     .select__item-list {
       display: none; }
+    .select__item-search {
+      position: relative; }
+  .select__input {
+    margin-left: 10px;
+    height: 30px;
+    width: 140px;
+    border: 1px solid #EBEBEB; }
+    .select__input-icon {
+      position: absolute;
+      right: 0;
+      padding-right: 7px;
+      color: #EBEBEB; }
   .select__section {
     margin: 30px 0 30px 0px;
     display: flex;
     align-items: center; }
-    .select__section-absolute {
-      margin-top: -80px; }
   .select__ingredients {
     left: 60px; }
   .select__appareils {
