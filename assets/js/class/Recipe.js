@@ -9,7 +9,7 @@ export class Recipe {
         this.display = true
 
         /* Load data from JSON */
-        const $pathImg = "../assets/img/recipes/"
+        const $pathImg = "./assets/img/recipes/"
         this.id = recipe.id
         this.name = recipe.name
         this.img = $pathImg + recipe.image

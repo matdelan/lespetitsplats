@@ -152,6 +152,12 @@ export class Select {
         this.domDisplay.classList.toggle("select__item-first");
         this.domItem.setAttribute("aria-expanded", "false");
         this.searchInput.style.display = "none"
+
+        const select = document.querySelectorAll(".select")
+        select.forEach(element => {
+            element.style.zIndex = "1" 
+        })
+
         this.domItem.focus();
     }
     /**
@@ -159,7 +165,10 @@ export class Select {
      */
     displayListItem() {
         this.deploy = true;
-
+        const select = document.querySelectorAll(".select")
+        select.forEach(element => {
+            element.style.zIndex = "10" 
+        })
         for (let i = 0; i < this.domItemList.length; i++) {
             if(this.domItemList[i].getAttribute("data-display") == "true") {
                 this.domItemList[i].style.display = "flex";

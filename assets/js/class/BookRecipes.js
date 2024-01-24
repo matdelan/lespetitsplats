@@ -120,6 +120,14 @@ export class BookRecipes {
             numberRecipesDom.textContent = i + " recette"
         else
             numberRecipesDom.textContent = i + " recettes"
+
+        const recipes = document.getElementById("recipes")
+        if(i === 0) {
+            //recipes.textContent = "Aucune recette !"
+        } else {
+            //recipes.textContent = " "
+        }
+
     }
     countDisplayRecipe() {
         let i = 0
@@ -171,22 +179,24 @@ export class BookRecipes {
         const elem = document.createElement("div")
         elem.classList.add("select__item")
         elem.classList.add("select__tag-item")
-        //elem.setAttribute("data-index", index)
-        //elem.setAttribute("data-select", select)
         elem.textContent = element.firstChild.textContent
         const i = document.createElement("i")
         i.classList.add("fa-solid")
         i.classList.add("fa-xmark")
 
-
+        /* Events*/
         elem.appendChild(i)
-        /* Events kill*/
-        elem.addEventListener("click", (event) => {
+        elem.addEventListener("click", () => {
             select.domItemList[index].classList.toggle("select__item-tag")
             this.removeTag(elem)
         })
-
+        
         return elem
+    }
+    refreshEventTag() {
+        //si 0 -> reset sinon 
+        const tags = document.querySelectorAll(".select__tag-item")
+
     }
     /* EVENTS */
     _eventTag(element, i, select) {
@@ -194,7 +204,6 @@ export class BookRecipes {
             if(element.classList.contains("select__item-tag")) {
                 const tags = document.querySelectorAll(".select__tag-item")
                 tags.forEach(tag => {
-                    console.log(tag)
                     if(tag.textContent.includes(element.firstChild.textContent))
                         tag.remove()
                 })
@@ -202,6 +211,7 @@ export class BookRecipes {
             } else {
                 element.classList.toggle("select__item-tag")
                 this.addTag(element, i, select)
+                this.search(element.firstChild.textContent.toLowerCase())
             }
         })
     }
@@ -218,14 +228,15 @@ export class BookRecipes {
         })
         i = 0
         this.selectAppliance.domItemList.forEach(element => {
-            this._eventTag(element, i, this.selectIngredients)
+            this._eventTag(element, i, this.selectAppliance)
             i++
         })
         i = 0
         this.selectUstensils.domItemList.forEach(element => {
-            this._eventTag(element, i, this.selectIngredients)
+            this._eventTag(element, i, this.selectUstensils)
             i++
         })
+
         /*
         document.addEventListener("DOMContentLoaded", function(){
             console.log(this.input.placeholder)

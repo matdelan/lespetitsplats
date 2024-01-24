@@ -154,7 +154,7 @@ main {
   display: flex;
   align-items: center;
   flex-direction: column;
-  z-index: 500;
+  z-index: 1;
   padding: 0;
   border: none;
   border-radius: 10px;
@@ -224,13 +224,15 @@ main {
     margin: 80px 50px 0 50px;
     justify-content: flex-start; }
     .select__tag-item {
+      z-index: 5;
       background-color: #FFD15B;
       border-radius: 10px;
-      display: flex;
       margin: 10px;
       padding-left: 30px;
-      cursor: pointer; }
-
-.fa-xmark {
-  font-size: 1.2em; }
+      cursor: pointer;
+      width: 140px; }
+      .select__tag-item i {
+        cursor: pointer;
+        font-size: 1.2em;
+        padding: 7px; }
 
