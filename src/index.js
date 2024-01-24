@@ -5,7 +5,6 @@ import * as homeBuildBookRecipes from "../assets/js/home/buildBookRecipes"
 
 
 const book = homeBuildBookRecipes.buildTabBookRecipes()
-console.log(book)
 
 book.initializeDom()
 

@@ -20,7 +20,7 @@ export class Select {
          * @type {HTMLElement}
          */
         this.domItem = document.querySelector(querySelect);
-
+        
         /**
          * The index of the selected entry.
          * @type {number}
@@ -33,6 +33,8 @@ export class Select {
          */
         this.domItemList = [];
 
+        this.domDisplay = null
+        this.searchInput = null
         /**
          * Flag indicating whether the select list is deployed or not.
          * @type {boolean}
@@ -87,7 +89,7 @@ export class Select {
         }
 
         entry.classList.add("select__item");
-        entry.style.setProperty("order", index + 1);
+        entry.style.setProperty("order", index + 2);
         entry.setAttribute("aria-label", this.list[index]);
 
         const p = document.createElement("p");
@@ -115,9 +117,10 @@ export class Select {
             entrySearch.appendChild(icon)
 
             this.domItem.appendChild(entrySearch)
-            this.domItemList.push(entry)
-            this.domItemList.push(entrySearch)
+            this.domDisplay = entry
+            this.searchInput = entrySearch
         } else {
+            entry.setAttribute("data-display", "true")
             this.domItemList.push(entry);
         }
         
@@ -139,16 +142,14 @@ export class Select {
     closeListItem() {
         this.deploy = false;
         for (let i = 0; i < this.domItemList.length; i++) {
-            if (this.domItemList[i].style.getPropertyValue("order") !== "1") {
-                this.domItemList[i].style.display = "none";
-            } else {
-                this.domItemList[i].style.display = "flex";
-                this.domItemList[i].lastChild.classList.toggle("fa-chevron-down");
-                this.domItemList[i].lastChild.classList.toggle("fa-chevron-up");
-                this.domItemList[i].classList.toggle("select__item-first");
-            }
+            this.domItemList[i].style.display = "none";
         }
+        this.domDisplay.style.display = "flex";
+        this.domDisplay.lastChild.classList.toggle("fa-chevron-down");
+        this.domDisplay.lastChild.classList.toggle("fa-chevron-up");
+        this.domDisplay.classList.toggle("select__item-first");
         this.domItem.setAttribute("aria-expanded", "false");
+        this.searchInput.style.display = "none"
         this.domItem.focus();
     }
     /**
@@ -158,53 +159,16 @@ export class Select {
         this.deploy = true;
 
         for (let i = 0; i < this.domItemList.length; i++) {
-            if (this.domItemList[i].style.getPropertyValue("order") !== "1") {
+            if(this.domItemList[i].getAttribute("data-display") == "true") {
                 this.domItemList[i].style.display = "flex";
-            } else {
-                // Swap chevron
-                console.log(this.domItemList[i].lastChild)
-                this.domItemList[i].lastChild.classList.toggle("fa-chevron-down");
-                this.domItemList[i].lastChild.classList.toggle("fa-chevron-up");
-                this.domItemList[i].classList.toggle("select__item-first");
             }
-            //const temp = this.domItemList[i].getAttribute("data-tabindex");
-            //this.domItemList[i].setAttribute("tabindex", temp);
+            else 
+                this.domItemList[i].style.display = "none";
         }
+        this.domDisplay.lastChild.classList.toggle("fa-chevron-down");
+        this.domDisplay.lastChild.classList.toggle("fa-chevron-up");
+        this.domDisplay.classList.toggle("select__item-first");
+        this.searchInput.style.display = "flex"
         this.domItem.setAttribute("aria-expanded", "true");
-    }
-
-    /**
-     * Swaps the first list item with a new index.
-     *
-     * @param {number} newIndex - The index of the new list item.
-     */
-    swapFirstListItem(newIndex) {
-        let lastOrder = null;
-        // Compare entry with index
-        lastOrder = this.domItemList[newIndex].style.getPropertyValue("order");
-        const lastTabindex = this.domItemList[newIndex].getAttribute("tabindex");
-        const lastDataTabindex = this.domItemList[newIndex].getAttribute("data-tabindex");
-
-        this.domItemList[newIndex].style.setProperty("order", "1");
-        this.domItemList[newIndex].classList.toggle("select__item-list");
-        this.domItemList[newIndex].lastElementChild.classList.toggle("fa-solid");
-        this.domItemList[newIndex].lastChild.classList.toggle("fa-chevron-down");
-        this.domItemList[newIndex].lastChild.classList.toggle("fa-chevron-up");
-        let temp = this.domItemList[this.entryIndex].getAttribute("tabindex");
-        this.domItemList[newIndex].setAttribute("tabindex", temp);
-        temp = this.domItemList[this.entryIndex].getAttribute("data-tabindex");
-        this.domItemList[newIndex].setAttribute("data-tabindex", temp);
-
-        this.domItemList[this.entryIndex].style.setProperty("order", lastOrder);
-        this.domItemList[this.entryIndex].classList.toggle("select__item-list");
-        this.domItemList[this.entryIndex].lastElementChild.classList.toggle("fa-solid");
-        this.domItemList[this.entryIndex].lastChild.classList.toggle("fa-chevron-down");
-        this.domItemList[this.entryIndex].lastChild.classList.toggle("fa-chevron-up");
-        this.domItemList[this.entryIndex].setAttribute("tabindex", lastTabindex);
-        this.domItemList[this.entryIndex].setAttribute("data-tabindex", lastDataTabindex);
-
-        this.entryIndex = newIndex;
-
-        this.closeListItem();
     }
 }
