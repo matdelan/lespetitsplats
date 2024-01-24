@@ -66,6 +66,8 @@ export class Select {
         for (let i = 0; i < this.list.length; i++) {
             this._buildMenuItem(i);
         }
+
+        this._addEvent()
     }
 
     /**
@@ -170,5 +172,8 @@ export class Select {
         this.domDisplay.classList.toggle("select__item-first");
         this.searchInput.style.display = "flex"
         this.domItem.setAttribute("aria-expanded", "true");
+    }
+
+    _addEvent() {
     }
 }

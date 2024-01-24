@@ -111,11 +111,7 @@ export class BookRecipes {
                 element.display = false
         })
     }
-    addTagInfo() {
-        //ajoute un element sur la page
-
-    }
-
+    /* Number recipe Management */
     synchroNumberRecipe() {
         const numberRecipesDom = document.querySelector(".select__number")
         const i = this.countDisplayRecipe()
@@ -134,6 +130,7 @@ export class BookRecipes {
 
         return parseInt(i)
     }
+    /* SEARCH MANAGEMENT */
     refreshSelect() {
 
     }
@@ -161,37 +158,84 @@ export class BookRecipes {
         this.refreshSelect()
         this.synchroNumberRecipe()
     }
+    /* TAG INFORMATION */
+    addTag(element, index, select) {
+        //ajoute un element sur la page
+        const domPosition = document.getElementById("select__tag")
+        domPosition.appendChild(this.createTag(element, index, select))
+    }
+    removeTag(element) {
+        element.remove()
+    }
+    createTag(element, index, select) {
+        const elem = document.createElement("div")
+        elem.classList.add("select__item")
+        elem.classList.add("select__tag-item")
+        //elem.setAttribute("data-index", index)
+        //elem.setAttribute("data-select", select)
+        elem.textContent = element.firstChild.textContent
+        const i = document.createElement("i")
+        i.classList.add("fa-solid")
+        i.classList.add("fa-xmark")
+
+
+        elem.appendChild(i)
+        /* Events kill*/
+        elem.addEventListener("click", (event) => {
+            select.domItemList[index].classList.toggle("select__item-tag")
+            this.removeTag(elem)
+        })
+
+        return elem
+    }
     /* EVENTS */
+    _eventTag(element, i, select) {
+        element.addEventListener("click", () => {
+            if(element.classList.contains("select__item-tag")) {
+                const tags = document.querySelectorAll(".select__tag-item")
+                tags.forEach(tag => {
+                    console.log(tag)
+                    if(tag.textContent.includes(element.firstChild.textContent))
+                        tag.remove()
+                })
+                element.classList.toggle("select__item-tag")
+            } else {
+                element.classList.toggle("select__item-tag")
+                this.addTag(element, i, select)
+            }
+        })
+    }
     _addEvents() {
         /* Input */
         this.input.addEventListener("input", (elem) => {
             const entry = elem.target.value.toLowerCase()
             this.search(entry)
         })
-
+        let i = 0
         this.selectIngredients.domItemList.forEach(element => {
-            element.addEventListener("click", () => {
-                element.classList.toggle("select__item-tag")
-            })
+            this._eventTag(element, i, this.selectIngredients)
+            i++
         })
+        i = 0
         this.selectAppliance.domItemList.forEach(element => {
-            element.addEventListener("click", () => {
-                element.classList.toggle("select__item-tag")
-            })
+            this._eventTag(element, i, this.selectIngredients)
+            i++
         })
+        i = 0
         this.selectUstensils.domItemList.forEach(element => {
-            element.addEventListener("click", () => {
-                element.classList.toggle("select__item-tag")
-            })
+            this._eventTag(element, i, this.selectIngredients)
+            i++
         })
         /*
         document.addEventListener("DOMContentLoaded", function(){
             console.log(this.input.placeholder)
             this.input.placeholder = "Rechercher une recette, un ingrédient, ..."
-        })*/
+        })
+        
+        */
 
     }
-    /* SELECT SEARCH */
+    /* SELECT SEARCH MANAGEMENT */
     refreshSelect() {
         this.selectIngredients.domItemList.forEach(element => {
             element.setAttribute("data-display", this.searchIngredients(element.firstChild.textContent)) 

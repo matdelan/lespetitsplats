@@ -62,7 +62,7 @@ main
     display: flex
     justify-content: space-between
     flex-wrap: wrap
-    margin: 60px 60px
+    margin: 0px 60px 60px 60px
 
 .recipe
     flex: 0 0 31%
@@ -151,6 +151,7 @@ main
         background-color: white
         &-first
             border-radius: 10px
+            position: sticky
         & p
             padding: 8px 0 8px 20px
         & i
@@ -181,3 +182,20 @@ main
         left: 280px
     &__ustensiles
         left: 500px
+    &__tag
+        display: flex
+        justify-content: space-between
+        flex-wrap: wrap
+        align-items: center
+        margin: 80px 50px 0 50px
+        justify-content: flex-start
+        &-item
+            background-color: $color-primary
+            border-radius: 10px
+            display: flex
+            margin: 10px
+            padding-left: 30px 
+            cursor: pointer
+
+.fa-xmark
+    font-size: 1.2em
