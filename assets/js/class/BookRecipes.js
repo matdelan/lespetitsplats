@@ -1,5 +1,8 @@
 import * as classRecipe from "./Recipe"
 import * as utilitySelect from "../utility/select"
+import * as utilityTag from "../utility/tag"
+import * as search from "../home/search"
+
 
 export class BookRecipes {
     
@@ -13,9 +16,9 @@ export class BookRecipes {
         this.input = document.querySelector(".header__subcontent-input")
         /* SELECT INITIALISE */
 
-        this.selectIngredients = this._buildSelect(".select__ingredients", this.getIngredientsArray())
-        this.selectAppliance = this._buildSelect(".select__appareils", this.getApplianceArray())
-        this.selectUstensils = this._buildSelect(".select__ustensiles", this.getUstensilsArray())
+        this.selectIngredients = this._buildSelect(".select__ingredients", search.getIngredientsArray(this.recipes))
+        this.selectAppliance = this._buildSelect(".select__appareils", search.getApplianceArray(this.recipes))
+        this.selectUstensils = this._buildSelect(".select__ustensiles", search.getUstensilsArray(this.recipes))
         
         this.selectIngredientsTag = document.querySelector(".select__ingredients-tag")
         this.selectApplianceTag = document.querySelector(".select__appareils-tag")
@@ -32,46 +35,11 @@ export class BookRecipes {
         this.synchroNumberRecipe() 
     }
 
-    /* INITIATE SELECT DATA */
-    getIngredientsArray() {
-        const result = ["Ingrédients"]
-        this.recipes.forEach(element => {
-            element.ingredients.forEach(item => {
-                if(!result.includes(item.ingredient)){
-                    result.push(item.ingredient)
-                }
-            })
-        })
 
-        return result
-    }
-    getApplianceArray() {
-        const result = ["Appareils"]
-        this.recipes.forEach(element => {
-                if(!result.includes(element.appliance)) {
-                    result.push(element.appliance)
-                }
-        })
-
-        return result
-    }
-    getUstensilsArray() {
-        const result = ["Ustensiles"]
-        this.recipes.forEach(element => {
-            element.ustensils.forEach(item => {
-                if(!result.includes(item)){
-                    result.push(item)
-                }
-            })
-        })
-
-        return result
-    }
     /* INITIATE SELECT */
     _buildSelect(domEmplacement, tabResult) {
-        
         const select = new utilitySelect.Select(domEmplacement, tabResult)
-        /* ADD Events */
+        /*ADD Events */
         select.domItem.firstChild.addEventListener("click", function() {
             if (!select.deploy) {
                 select.showSelectList();
@@ -82,126 +50,12 @@ export class BookRecipes {
 
         return select
     }
-    /* AMELIORATION : Trier la liste finale par max occurent / nombre de mots de la recette du mieux évaluer au moins bon (1 occurence par exemple)*/
-    searchRecipes(entry) {
-        /* Search on title, description and ingrédients - minimum functionning*/
-        
-        this.recipes.forEach(element => {
-            let bool = false
 
-            if(element.name.toLowerCase().includes(entry)) {
-                bool = true
-            }
-            if(!bool) {
-                if(element.description.toLowerCase().includes(entry)) {
-                    bool = true
-                }
-                if(!bool) {
-                    element.ingredients.forEach(item => {
-                        if(item.ingredient.toLowerCase().includes(entry)) {
-                            bool = true
-                        }
-                        // Add break if for loop
-                    })
-                }
-            }
-            if(bool)
-                element.display = true
-            else
-                element.display = false
-        })
-    }
-    /* Number recipe Management */
-    synchroNumberRecipe() {
-        const numberRecipesDom = document.querySelector(".select__number")
-        const i = this.countDisplayRecipe()
-
-        if(i === 1)
-            numberRecipesDom.textContent = i + " recette"
-        else
-            numberRecipesDom.textContent = i + " recettes"
-
-        const recipes = document.getElementById("recipes")
-        if(i === 0) {
-            //recipes.textContent = "Aucune recette !"
-        } else {
-            //recipes.textContent = " "
-        }
-
-    }
-    countDisplayRecipe() {
-        let i = 0
-        this.recipes.forEach(element => {
-            if(element.display)
-                i++
-        })
-
-        return parseInt(i)
-    }
-    /* SEARCH MANAGEMENT */
-    refreshSelect() {
-
-    }
-    refreshDisplay() {
-        this.recipes.forEach(element => {
-            if(element.display)
-                element.domItem.style.display = "block"
-            else
-                element.domItem.style.display = "none"
-        })
-    }
-    search(entry) {
-        if(entry.length > 2){
-            this.searchRecipes(entry)
-        }
-        /* REFACTO => Tableau de select */
-        if(this.selectIngredients.deploy) 
-            this.selectIngredients.closeListItem()
-        if(this.selectAppliance.deploy) 
-            this.selectAppliance.closeListItem()
-        if(this.selectUstensils.deploy) 
-            this.selectUstensils.closeListItem()
-
-        this.refreshDisplay()
-        this.refreshSelect()
-        this.synchroNumberRecipe()
-    }
-    /* TAG INFORMATION */
-    addTag(element, index, select) {
-        //ajoute un element sur la page
-        const domPosition = document.getElementById("select__tag")
-        domPosition.appendChild(this.createTag(element, index, select))
-    }
-    removeTag(element) {
-        element.remove()
-    }
-    createTag(element, index, select) {
-        const elem = document.createElement("div")
-        elem.classList.add("select__item")
-        elem.classList.add("select__tag-item")
-        elem.textContent = element.firstChild.textContent
-        const i = document.createElement("i")
-        i.classList.add("fa-solid")
-        i.classList.add("fa-xmark")
-
-        /* Events*/
-        elem.appendChild(i)
-        elem.addEventListener("click", () => {
-            select.domItemList[index].classList.toggle("select__item-tag")
-            this.removeTag(elem)
-        })
-        
-        return elem
-    }
-    refreshEventTag() {
-        //si 0 -> reset sinon 
-        const tags = document.querySelectorAll(".select__tag-item")
-
-    }
     /* EVENTS */
     _eventTag(element, i, select) {
         element.addEventListener("click", () => {
             if(element.classList.contains("select__item-tag")) {
+                //-> C'est un élément tagguer
                 const tags = document.querySelectorAll(".select__tag-item")
                 tags.forEach(tag => {
                     if(tag.textContent.includes(element.firstChild.textContent))
@@ -209,10 +63,12 @@ export class BookRecipes {
                 })
                 element.classList.toggle("select__item-tag")
             } else {
+                //-> Creation du tag
                 element.classList.toggle("select__item-tag")
-                this.addTag(element, i, select)
-                this.search(element.firstChild.textContent.toLowerCase())
+                this.createTag(element, i, select)
+                //this.search(element.firstChild.textContent.toLowerCase())
             }
+            this.search(this.input.value.toLowerCase())
         })
     }
     _addEvents() {
@@ -236,66 +92,128 @@ export class BookRecipes {
             this._eventTag(element, i, this.selectUstensils)
             i++
         })
+    }
 
-        /*
-        document.addEventListener("DOMContentLoaded", function(){
-            console.log(this.input.placeholder)
-            this.input.placeholder = "Rechercher une recette, un ingrédient, ..."
+    /* AMELIORATION : Trier la liste finale par max occurent / nombre de mots de la recette du mieux évaluer au moins bon (1 occurence par exemple)*/
+    
+    search(entry) {
+        if(this.input.value === "Rechercher une recette, un ingrédient, ...") 
+            entry = this.input.value = " "
+    
+        this.refreshSearchTags()
+            
+        if(entry.length > 2) {
+            search.Recipes(entry, null, this.recipes)
+        }
+        this.closeAllSelect()
+    
+        this.refreshDisplay()
+        this.refreshSelect()
+        this.synchroNumberRecipe()
+    }
+
+    refreshSearchTags() {
+        //Controle tous les tags: reinitialise la recherche et applique une recherche sur les tags restant
+        this.recipes.forEach(element => {
+            if(!element.display)
+                element.display = true
         })
-        
-        */
 
+        const tags = document.querySelectorAll(".select__tag-item")
+
+        tags.forEach(element => {
+            const selectName = element.getAttribute("data-select")
+            search.Recipes(element.textContent.toLowerCase(), selectName, this.recipes)   
+        })
     }
     /* SELECT SEARCH MANAGEMENT */
+    closeAllSelect() {
+        if(this.selectIngredients.deploy) 
+            this.selectIngredients.closeListItem()
+        if(this.selectAppliance.deploy) 
+            this.selectAppliance.closeListItem()
+        if(this.selectUstensils.deploy) 
+            this.selectUstensils.closeListItem()
+    }
+
+    /* Display result after search */
+    refreshDisplay() {
+        this.recipes.forEach(element => {
+            if(element.display)
+                element.domItem.style.display = "block"
+            else
+                element.domItem.style.display = "none"
+        })
+    }
+
     refreshSelect() {
         this.selectIngredients.domItemList.forEach(element => {
-            element.setAttribute("data-display", this.searchIngredients(element.firstChild.textContent)) 
+            element.setAttribute("data-display", search.Ingredients(element.firstChild.textContent, this.recipes)) 
         })
         this.selectAppliance.domItemList.forEach(element => {
-            element.setAttribute("data-display", this.searchAppareils(element.firstChild.textContent)) 
+            element.setAttribute("data-display", search.Appareils(element.firstChild.textContent, this.recipes)) 
         })
         this.selectUstensils.domItemList.forEach(element => {
-            element.setAttribute("data-display", this.searchUstensils(element.firstChild.textContent)) 
+            element.setAttribute("data-display", search.Ustensils(element.firstChild.textContent, this.recipes)) 
         })
     }
-    searchIngredients(element) {
-        //Parcours les ingredient pour une recette et return true or F
-        let result = false
-        this.recipes.forEach(item => {
-            if(item.display) {
-                item.ingredients.forEach(ingredient => {
-                    if(element.toLowerCase().includes(ingredient.ingredient.toLowerCase()))
-                        result = true    
-                })
-            }
-        })
+    
+    /* Number recipe Management */
+    synchroNumberRecipe() {
+        const numberRecipesDom = document.querySelector(".select__number")
+        const i = this.countDisplayRecipe()
 
-        return result
-    }
-    searchAppareils(element) {
-        let result = false
-        this.recipes.forEach(item => {
-            if(item.display) {
-                if(element.toLowerCase().includes(item.appliance.toLowerCase()))
-                        result = true 
-            }
-        })
+        if(i === 1 || i === 0)
+            numberRecipesDom.textContent = i + " recette"
+        else
+            numberRecipesDom.textContent = i + " recettes"
 
-        return result
+        const recipes = document.getElementById("info")
+        if(i === 0) {
+            recipes.textContent = "Aucune recette trouvée!"
+            recipes.style.display = "flex"
+        } else {
+            recipes.style.display = "none"
+        }
 
     }
-    searchUstensils(element) {
-        let result = false
-        this.recipes.forEach(item => {
-            if(item.display) {
-                item.ustensils.forEach(elem => {
-                    if(element.toLowerCase().includes(elem.toLowerCase()))
-                        result = true    
-                })
-            }
+    countDisplayRecipe() {
+        let i = 0
+        this.recipes.forEach(element => {
+            if(element.display)
+                i++
         })
 
-        return result
-
+        return parseInt(i)
     }
+    
+    /* TAG INFORMATION */
+    removeTag(element) {
+        element.remove()
+        this.search(this.input.value.toLowerCase())
+    }
+    createTag(element, index, select) {
+        const domPosition = document.getElementById("select__tag")
+        
+
+        const elem = document.createElement("div")
+        elem.classList.add("select__item")
+        elem.classList.add("select__tag-item")
+        elem.textContent = element.firstChild.textContent
+        elem.setAttribute("data-select", select.domItem.firstChild.firstChild.textContent)
+        const i = document.createElement("i")
+        i.classList.add("fa-solid")
+        i.classList.add("fa-xmark")
+
+        /* Events*/
+        elem.appendChild(i)
+        elem.addEventListener("click", () => {
+            select.domItemList[index].classList.toggle("select__item-tag")
+            this.removeTag(elem)
+        })
+        
+        domPosition.appendChild(elem)
+    }
+    
+    
 }

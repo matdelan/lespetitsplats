@@ -1,62 +1,12 @@
-header
-    display: flex
-    
-.header
-    &__background
-        object-fit: cover
-        height: 370px
-        width: 100%
-        position: relative
-    &__logo
-        +anton-font
-        color: white
-        position: absolute
-        font-size: 1.2em
-        top: 0
-        margin: 30px 0 0 50px
-    &__content
-        display: flex
-        align-items: center
-        justify-content: center
-        position: absolute
-        top: 10%
-        flex-direction: column
-        width: 100%
-        &-title
-            color: $color-primary
-            +anton-font
-            font-size: 1.6em
-            text-align: center
-            width: 55%
-            margin-bottom: 15px
-    &__subcontent
-        width: 66%
-        display: flex
-        align-items: center
-        justify-content: center
-        color: grey
-        position: relative
-        &-input
-            color: grey
-            font-size: 1em
-            height: 45px
-            border: none
-            border-radius: 5px
-            width: 100%
-            padding-left: 30px
-        &-searchicon
-            background-color: black
-            padding: 8px
-            z-index: 1
-            font-size: 1.3em
-            border-radius: 10px
-            position: absolute
-            right: 0
-            margin-right: 10px
-
 main
     background-color: $color-secondary-light
     padding-bottom: 100px
+
+#info
+    padding: 200px
+    color: black
+    +anton-font
+    font-size: 2em
 
 #recipes
     display: flex
@@ -112,92 +62,3 @@ main
             margin: 10px 0
         &-subtext
             color: $color-secondary
-#select
-    display: flex
-    justify-content: flex-end
-
-.select
-    display: flex
-    align-items: center
-    flex-direction: column
-    z-index: 1
-    padding: 0
-    border: none
-    border-radius: 10px
-    margin-top: 15px
-    position: absolute
-    height: 300px
-    overflow: hidden
-    overflow-y: auto
-    &__label
-        font-weight: bold
-        font-size: 1.2em
-        margin: 0 30px 0 100px
-    &__number
-        position: absolute
-        right: 0px
-        padding: 15px 65px 0 0
-    &__item
-        justify-content: space-between
-        font-size: 0.9em
-        color: black
-        padding: 5px
-        width: 165px
-        height: 35px
-        font-weight: 300
-        display: flex
-        cursor: pointer
-        align-items: center
-        background-color: white
-        &-first
-            border-radius: 10px
-            position: sticky
-        & p
-            padding: 8px 0 8px 20px
-        & i
-            margin-right: 12px
-        &-list
-            display: none
-        &-search
-            position: relative
-        &-tag
-            background-color: $color-primary
-    &__input
-        margin-left: 10px
-        height: 30px
-        width: 140px
-        border: 1px solid $color-secondary-light
-        &-icon
-            position: absolute
-            right: 0
-            padding-right: 7px
-            color: $color-secondary-light
-    &__section
-        margin: 30px 0 30px 0px
-        display: flex
-        align-items: center
-    &__ingredients
-        left: 60px
-    &__appareils
-        left: 280px
-    &__ustensiles
-        left: 500px
-    &__tag
-        display: flex
-        justify-content: space-between
-        flex-wrap: wrap
-        align-items: center
-        margin: 80px 50px 0 50px
-        justify-content: flex-start
-        &-item
-            z-index: 5
-            background-color: $color-primary
-            border-radius: 10px
-            margin: 10px
-            padding-left: 30px 
-            cursor: pointer
-            width: 140px
-            & i
-                cursor: pointer
-                font-size: 1.2em
-                padding: 7px

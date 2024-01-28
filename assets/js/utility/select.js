@@ -35,6 +35,7 @@ export class Select {
 
         this.domDisplay = null
         this.searchInput = null
+        this.input = null
         /**
          * Flag indicating whether the select list is deployed or not.
          * @type {boolean}
@@ -117,7 +118,7 @@ export class Select {
             icon.classList.add("fa-magnifying-glass")
             icon.classList.add("select__input-icon")
             entrySearch.appendChild(icon)
-
+            this.input = entrySearch.firstChild
             this.domItem.appendChild(entrySearch)
             this.domDisplay = entry
             this.searchInput = entrySearch
@@ -182,7 +183,39 @@ export class Select {
         this.searchInput.style.display = "flex"
         this.domItem.setAttribute("aria-expanded", "true");
     }
+    search(string) {
+        this.domItemList.forEach(element => {
+            element.style.display = "flex"
+            if(!element.firstChild.textContent.includes(string))
+                element.style.display = "none"
+        })
+    }
+    refreshSearch() {
+        this.domItemList.forEach(element => {
+            element.style.display = "flex"
+        })
+    }
 
     _addEvent() {
+        
+        /* input Change */
+        this.input.addEventListener("input", (elem) => {
+            const entry = elem.target.value.toLowerCase()
+            this.search(entry)
+        })
+        /*.addEventListener("blur", () => {
+            this.input.value = " "
+            this.refreshSearch()
+        })*/
+        /* Click event document */
+        document.addEventListener("click", (event) => {
+            
+            if (!this.domItem.contains(event.target)) {
+                this.input.value = ""
+                if (this.deploy) {
+                    this.closeListItem();
+                }
+            }
+        })
     }
 }
