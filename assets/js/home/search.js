@@ -120,34 +120,6 @@ export function Recipes(entry, selectName, recipes) {
                     }
                 });
                 break;
-            case "boucleFor":
-                for(let i=0; i < recipes.lenght; i++) {
-                    if(recipes[i].display) {
-                        bool = false;
-        
-                        if(recipes[i].name.toLowerCase().includes(entry)) {
-                            bool = true;
-                        }
-                        if(!bool) {
-                            if(recipes[i].description.toLowerCase().includes(entry)) {
-                                bool = true;
-                            }
-                            if(!bool) {
-                                recipes[i].ingredients.forEach(item => {
-                                    if(item.ingredient.toLowerCase().includes(entry)) {
-                                        bool = true;
-                                    }
-                                    // Add break if for loop
-                                });
-                            }
-                        }
-                        if(bool)
-                            recipes[i].display = true;
-                        else
-                            recipes[i].display = false;
-                    }
-                }
-                break;
     }
 }
 
