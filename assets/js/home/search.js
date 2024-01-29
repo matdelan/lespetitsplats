@@ -43,83 +43,111 @@ export function Ustensils(selectUstensil, recipes) {
 
 export function Recipes(entry, selectName, recipes) {
     /* Search on title, description and ingrédients - minimum functionning*/
-    let bool = false
+    let bool = false;
     switch(selectName) {
             case "Ingrédients":
                 recipes.forEach(element => {
-                    bool = false
+                    bool = false;
                     if(element.display) {
                         element.ingredients.forEach(item => {
                             if(item.ingredient.toLowerCase() === entry) {
-                                bool = true
+                                bool = true;
                             }
                         })
                     }
                     if(bool)
-                        element.display = true
+                        element.display = true;
                     else
-                        element.display = false
-                })
-                break
+                        element.display = false;
+                });
+                break;
             case "Appareils":
                 recipes.forEach(recipe => {
-                    bool = false
+                    bool = false;
                     if(recipe.display) {
                         if(recipe.appliance.toLowerCase() === entry) {
-                            bool = true
+                            bool = true;
                         }
                     }
                     if(bool)
-                        recipe.display = true
+                        recipe.display = true;
                     else
-                        recipe.display = false
-                })
-                break
+                        recipe.display = false;
+                });
+                break;
             case "Ustensiles":
                 recipes.forEach(element => {
-                    bool = false
+                    bool = false;
                     if(element.display) {
                         element.ustensils.forEach(item => {
                             if(item.toLowerCase() === entry) {
-                                bool = true
+                                bool = true;
                             }
                         })
                         
                     }
                     if(bool)
-                        element.display = true
+                        element.display = true;
                     else
-                        element.display = false
-                })
-                break
+                        element.display = false;
+                });
+                break;
             case null:
                 recipes.forEach(element => {
                     if(element.display) {
-                        bool = false
+                        bool = false;
         
                         if(element.name.toLowerCase().includes(entry)) {
-                            bool = true
+                            bool = true;
                         }
                         if(!bool) {
                             if(element.description.toLowerCase().includes(entry)) {
-                                bool = true
+                                bool = true;
                             }
                             if(!bool) {
                                 element.ingredients.forEach(item => {
                                     if(item.ingredient.toLowerCase().includes(entry)) {
-                                        bool = true
+                                        bool = true;
                                     }
                                     // Add break if for loop
-                                })
+                                });
                             }
                         }
                         if(bool)
-                            element.display = true
+                            element.display = true;
                         else
-                            element.display = false
+                            element.display = false;
                     }
-                })
-                break
+                });
+                break;
+            case "boucleFor":
+                for(let i=0; i < recipes.lenght; i++) {
+                    if(recipes[i].display) {
+                        bool = false;
+        
+                        if(recipes[i].name.toLowerCase().includes(entry)) {
+                            bool = true;
+                        }
+                        if(!bool) {
+                            if(recipes[i].description.toLowerCase().includes(entry)) {
+                                bool = true;
+                            }
+                            if(!bool) {
+                                recipes[i].ingredients.forEach(item => {
+                                    if(item.ingredient.toLowerCase().includes(entry)) {
+                                        bool = true;
+                                    }
+                                    // Add break if for loop
+                                });
+                            }
+                        }
+                        if(bool)
+                            recipes[i].display = true;
+                        else
+                            recipes[i].display = false;
+                    }
+                }
+                break;
     }
 }
 
