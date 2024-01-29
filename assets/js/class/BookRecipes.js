@@ -55,7 +55,7 @@ export class BookRecipes {
     _eventTag(element, i, select) {
         element.addEventListener("click", () => {
             if(element.classList.contains("select__item-tag")) {
-                //-> C'est un élément tagguer
+                //-> Already a tag
                 const tags = document.querySelectorAll(".select__tag-item")
                 tags.forEach(tag => {
                     if(tag.textContent.includes(element.firstChild.textContent))
@@ -63,10 +63,9 @@ export class BookRecipes {
                 })
                 element.classList.toggle("select__item-tag")
             } else {
-                //-> Creation du tag
+                //-> Create tag
                 element.classList.toggle("select__item-tag")
                 this.createTag(element, i, select)
-                //this.search(element.firstChild.textContent.toLowerCase())
             }
             this.search(this.input.value.toLowerCase())
         })
@@ -194,9 +193,8 @@ export class BookRecipes {
     }
     createTag(element, index, select) {
         const domPosition = document.getElementById("select__tag")
-        
-
         const elem = document.createElement("div")
+        
         elem.classList.add("select__item")
         elem.classList.add("select__tag-item")
         elem.textContent = element.firstChild.textContent

@@ -39,7 +39,6 @@ export function Ustensils(selectUstensil, recipes) {
     })
     
     return result
-
 }
 
 export function Recipes(entry, selectName, recipes) {

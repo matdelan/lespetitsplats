@@ -154,11 +154,8 @@ export class Select {
         this.domItem.setAttribute("aria-expanded", "false");
         this.searchInput.style.display = "none"
 
-        const select = document.querySelectorAll(".select")
-        select.forEach(element => {
-            element.style.zIndex = "1" 
-        })
-
+        this.domItem.style.zIndex = "1" 
+        console.log("close select")
         this.domItem.focus();
     }
     /**
@@ -166,10 +163,7 @@ export class Select {
      */
     displayListItem() {
         this.deploy = true;
-        const select = document.querySelectorAll(".select")
-        select.forEach(element => {
-            element.style.zIndex = "10" 
-        })
+        this.domItem.style.zIndex = "10"
         for (let i = 0; i < this.domItemList.length; i++) {
             if(this.domItemList[i].getAttribute("data-display") == "true") {
                 this.domItemList[i].style.display = "flex";
@@ -182,6 +176,7 @@ export class Select {
         this.domDisplay.classList.toggle("select__item-first");
         this.searchInput.style.display = "flex"
         this.domItem.setAttribute("aria-expanded", "true");
+        console.log("display")
     }
     search(string) {
         this.domItemList.forEach(element => {
@@ -203,13 +198,9 @@ export class Select {
             const entry = elem.target.value.toLowerCase()
             this.search(entry)
         })
-        /*.addEventListener("blur", () => {
-            this.input.value = " "
-            this.refreshSearch()
-        })*/
         /* Click event document */
         document.addEventListener("click", (event) => {
-            
+            console.log("document close")
             if (!this.domItem.contains(event.target)) {
                 this.input.value = ""
                 if (this.deploy) {

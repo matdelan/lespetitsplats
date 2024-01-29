@@ -15,7 +15,11 @@ main
     margin: 0px 60px 60px 60px
 
 .recipe
-    flex: 0 0 31%
+    flex: 0 0 90%
+    +mq(md)
+        flex: 0 0 47%
+    +mq(lg)
+        flex: 0 0 31%
     position: relative
     background-color: white
     border-radius: 15px
