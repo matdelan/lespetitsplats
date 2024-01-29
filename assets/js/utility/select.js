@@ -176,7 +176,18 @@ export class Select {
         this.domDisplay.classList.toggle("select__item-first");
         this.searchInput.style.display = "flex"
         this.domItem.setAttribute("aria-expanded", "true");
+        this.checkLastElem()
+
         console.log("display")
+    }
+    checkLastElem() {
+        for(let i= this.domItemList.length - 1; i>=0; i--) {
+            if(this.domItemList[i].style.display === "flex") {
+                this.domItemList[i].style.borderBottomRightRadius = "10px"
+                this.domItemList[i].style.borderBottomLeftRadius = "10px"
+                break
+            }
+        }
     }
     search(string) {
         this.domItemList.forEach(element => {
