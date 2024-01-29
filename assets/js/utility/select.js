@@ -146,6 +146,10 @@ export class Select {
         this.deploy = false;
         for (let i = 0; i < this.domItemList.length; i++) {
             this.domItemList[i].style.display = "none";
+            if(this.domItemList[i].style.borderBottomRightRadius === "10px") {
+                this.domItemList[i].style.borderBottomRightRadius = null
+                this.domItemList[i].style.borderBottomLeftRadius = null
+            }
         }
         this.domDisplay.style.display = "flex";
         this.domDisplay.lastChild.classList.toggle("fa-chevron-down");
@@ -155,7 +159,7 @@ export class Select {
         this.searchInput.style.display = "none"
 
         this.domItem.style.zIndex = "1" 
-        console.log("close select")
+
         this.domItem.focus();
     }
     /**
@@ -177,8 +181,7 @@ export class Select {
         this.searchInput.style.display = "flex"
         this.domItem.setAttribute("aria-expanded", "true");
         this.checkLastElem()
-
-        console.log("display")
+        this.input.value = ""
     }
     checkLastElem() {
         for(let i= this.domItemList.length - 1; i>=0; i--) {
@@ -195,15 +198,15 @@ export class Select {
             if(!element.firstChild.textContent.includes(string))
                 element.style.display = "none"
         })
+        this.checkLastElem()
     }
     refreshSearch() {
         this.domItemList.forEach(element => {
-            element.style.display = "flex"
+            element.style.display = "flex" 
         })
     }
 
     _addEvent() {
-        
         /* input Change */
         this.input.addEventListener("input", (elem) => {
             const entry = elem.target.value.toLowerCase()
@@ -211,7 +214,6 @@ export class Select {
         })
         /* Click event document */
         document.addEventListener("click", (event) => {
-            console.log("document close")
             if (!this.domItem.contains(event.target)) {
                 this.input.value = ""
                 if (this.deploy) {

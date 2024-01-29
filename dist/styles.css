@@ -55,7 +55,9 @@
     margin-left: 10px;
     height: 30px;
     width: 140px;
-    border: 1px solid #EBEBEB; }
+    border: 1px solid #EBEBEB;
+    font-size: 1em;
+    font-family: Manrope; }
     .select__input-icon {
       position: absolute;
       right: 0;
@@ -209,7 +211,7 @@ main {
   margin: 0px 60px 60px 60px; }
 
 .recipe {
-  flex: 0 0 90%;
+  flex: 0 0 96%;
   position: relative;
   background-color: white;
   border-radius: 15px;
