@@ -1,5 +1,4 @@
 export function Ingredients(element, recipes) {
-    //Parcours les ingredient pour une recette et return true or F
     let result = false
     recipes.forEach(recipe => {
         if(recipe.display) {
@@ -12,7 +11,6 @@ export function Ingredients(element, recipes) {
 
     return result
 }
-
 export function Appareils(element, recipes) {
     let result = false
     recipes.forEach(recipe => {
@@ -30,7 +28,6 @@ export function Ustensils(selectUstensil, recipes) {
     recipes.forEach(recipe => {
         if(recipe.display) {
             recipe.ustensils.forEach(recipeUstensil => {
-                //console.log(selectUstensil.toLowerCase() +" "+recipeUstensil.toLowerCase())
                 if(selectUstensil.toLowerCase() === recipeUstensil.toLowerCase()) {
                     result = true    
                 }
@@ -108,7 +105,6 @@ export function Recipes(entry, selectName, recipes) {
                                     if(item.ingredient.toLowerCase().includes(entry)) {
                                         bool = true;
                                     }
-                                    // Add break if for loop
                                 });
                             }
                         }
@@ -160,7 +156,6 @@ export function Recipes(entry, selectName, recipes) {
                                         if(item.ingredient.toLowerCase().includes(entry)) {
                                             bool = true;
                                         }
-                                        // Add break if for loop
                                     });
                                 }
                             }

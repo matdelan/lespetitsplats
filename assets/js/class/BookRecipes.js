@@ -1,6 +1,5 @@
 import * as classRecipe from "./Recipe"
 import * as utilitySelect from "../utility/select"
-import * as utilityTag from "../utility/tag"
 import * as search from "../home/search"
 
 
@@ -12,10 +11,8 @@ export class BookRecipes {
             this.recipes.push(new classRecipe.Recipe(element))
         })
         this.id = id
-        //search input
         this.input = document.querySelector(".header__subcontent-input")
         /* SELECT INITIALISE */
-
         this.selectIngredients = this._buildSelect(".select__ingredients", search.getIngredientsArray(this.recipes))
         this.selectAppliance = this._buildSelect(".select__appareils", search.getApplianceArray(this.recipes))
         this.selectUstensils = this._buildSelect(".select__ustensiles", search.getUstensilsArray(this.recipes))
@@ -49,12 +46,12 @@ export class BookRecipes {
     }
     search(entry) {
         if(this.input.value === "Rechercher une recette, un ingrédient, ...") 
-            entry = this.input.value = " "
+            entry = this.input.value = ""
     
         this.refreshSearchTags()
             
         if(entry.length > 2) {
-            search.Recipes(entry, "map", this.recipes)
+            search.Recipes(entry, null, this.recipes)
         }
         this.closeAllSelect()
     
