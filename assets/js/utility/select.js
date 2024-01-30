@@ -149,7 +149,7 @@ export class Select {
             if(this.domItemList[i].style.borderBottomRightRadius === "10px") {
                 this.domItemList[i].style.borderBottomRightRadius = null
                 this.domItemList[i].style.borderBottomLeftRadius = null
-            }
+            }  
         }
         this.domDisplay.style.display = "flex";
         this.domDisplay.lastChild.classList.toggle("fa-chevron-down");
@@ -184,6 +184,12 @@ export class Select {
         this.input.value = ""
     }
     checkLastElem() {
+        this.domItemList.forEach(element => {
+            if(element.style.borderBottomRightRadius === "10px") {
+                element.style.borderBottomRightRadius = null
+                element.style.borderBottomLeftRadius = null
+            }
+        })
         for(let i= this.domItemList.length - 1; i>=0; i--) {
             if(this.domItemList[i].style.display === "flex") {
                 this.domItemList[i].style.borderBottomRightRadius = "10px"
@@ -195,14 +201,19 @@ export class Select {
     search(string) {
         this.domItemList.forEach(element => {
             element.style.display = "flex"
-            if(!element.firstChild.textContent.includes(string))
+            if(!element.firstChild.textContent.includes(string)) {
                 element.style.display = "none"
+            }
         })
         this.checkLastElem()
     }
     refreshSearch() {
         this.domItemList.forEach(element => {
             element.style.display = "flex" 
+            if(element.style.borderBottomRightRadius === "10px") {
+                element.style.borderBottomRightRadius = null
+                element.style.borderBottomLeftRadius = null
+            }
         })
     }
 
