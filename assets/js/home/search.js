@@ -84,7 +84,6 @@ export function Recipes(entry, selectName, recipes) {
                                 bool = true;
                             }
                         })
-                        
                     }
                     if(bool)
                         element.display = true;
@@ -120,6 +119,58 @@ export function Recipes(entry, selectName, recipes) {
                     }
                 });
                 break;
+            case "for":
+                for(let i=0; i<recipes.length; i++) {
+                    if(recipes[i].display) {
+                        bool = false;
+        
+                        if(recipes[i].name.toLowerCase().includes(entry)) {
+                            bool = true;
+                        }
+                        if(!bool)if(recipes[i].description.toLowerCase().includes(entry)) {
+                                bool = true;
+                        }
+                        if(!bool)for(let j=0; j < recipes[i].ingredients.length; j++) {
+                            if(recipes[i].ingredients[j].ingredient.toLowerCase().includes(entry)) {
+                                bool = true;
+                                break;
+                            }
+                        }
+                    }
+                    if(bool)
+                        recipes[i].display = true;
+                    else
+                        recipes[i].display = false;
+                }
+                break;
+            case "map":
+                recipes.map(element => {
+                        if(element.display) {
+                            bool = false;
+            
+                            if(element.name.toLowerCase().includes(entry)) {
+                                bool = true;
+                            }
+                            if(!bool) {
+                                if(element.description.toLowerCase().includes(entry)) {
+                                    bool = true;
+                                }
+                                if(!bool) {
+                                    element.ingredients.map(item => {
+                                        if(item.ingredient.toLowerCase().includes(entry)) {
+                                            bool = true;
+                                        }
+                                        // Add break if for loop
+                                    });
+                                }
+                            }
+                            if(bool)
+                                element.display = true;
+                            else
+                                element.display = false;
+                        }
+                    });
+                    break;
     }
 }
 

@@ -31,6 +31,7 @@ export class BookRecipes {
             recipes.appendChild(element.domItem)
         })
         this.synchroNumberRecipe() 
+
     }
     /* INITIATE SELECT */
     _buildSelect(domEmplacement, tabResult) {
@@ -53,7 +54,7 @@ export class BookRecipes {
         this.refreshSearchTags()
             
         if(entry.length > 2) {
-            search.Recipes(entry, null, this.recipes)
+            search.Recipes(entry, "map", this.recipes)
         }
         this.closeAllSelect()
     

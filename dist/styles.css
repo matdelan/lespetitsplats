@@ -39,8 +39,7 @@
     align-items: center;
     background-color: white; }
     .select__item-first {
-      border-radius: 10px;
-      position: sticky; }
+      border-radius: 10px; }
     .select__item p {
       padding: 8px 0 8px 20px; }
     .select__item i {
