@@ -137,7 +137,7 @@ export class Select {
             this.closeListItem();
         } else {
             this.displayListItem();
-        }
+        }   
     }
     /**
      * Closes the select list.
@@ -183,26 +183,12 @@ export class Select {
         this.checkLastElem()
         this.input.value = ""
     }
-    checkLastElem() {
-        this.domItemList.forEach(element => {
-            if(element.style.borderBottomRightRadius === "10px") {
-                element.style.borderBottomRightRadius = null
-                element.style.borderBottomLeftRadius = null
-            }
-        })
-        for(let i= this.domItemList.length - 1; i>=0; i--) {
-            if(this.domItemList[i].style.display === "flex") {
-                this.domItemList[i].style.borderBottomRightRadius = "10px"
-                this.domItemList[i].style.borderBottomLeftRadius = "10px"
-                break
-            }
-        }
-    }
     search(string) {
         this.domItemList.forEach(element => {
-            element.style.display = "flex"
-            if(!element.firstChild.textContent.includes(string)) {
-                element.style.display = "none"
+            if(element.style.display === "flex") {
+                if(!element.firstChild.textContent.includes(string)) {
+                    element.style.display = "none"
+                }
             }
         })
         this.checkLastElem()
@@ -232,5 +218,20 @@ export class Select {
                 }
             }
         })
+    }
+    checkLastElem() {
+        this.domItemList.forEach(element => {
+            if(element.style.borderBottomRightRadius === "10px") {
+                element.style.borderBottomRightRadius = null
+                element.style.borderBottomLeftRadius = null
+            }
+        })
+        for(let i= this.domItemList.length - 1; i>=0; i--) {
+            if(this.domItemList[i].style.display === "flex") {
+                this.domItemList[i].style.borderBottomRightRadius = "10px"
+                this.domItemList[i].style.borderBottomLeftRadius = "10px"
+                break
+            }
+        }
     }
 }

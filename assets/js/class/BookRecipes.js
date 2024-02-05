@@ -5,7 +5,7 @@ import * as search from "../home/search"
 
 export class BookRecipes {
     
-    constructor(jsonData, id){
+    constructor(jsonData, id) {
         this.recipes = []
         jsonData.forEach(element => {
             this.recipes.push(new classRecipe.Recipe(element))
@@ -16,11 +16,6 @@ export class BookRecipes {
         this.selectIngredients = this._buildSelect(".select__ingredients", search.getIngredientsArray(this.recipes))
         this.selectAppliance = this._buildSelect(".select__appareils", search.getApplianceArray(this.recipes))
         this.selectUstensils = this._buildSelect(".select__ustensiles", search.getUstensilsArray(this.recipes))
-        
-        this.selectIngredientsTag = document.querySelector(".select__ingredients-tag")
-        this.selectApplianceTag = document.querySelector(".select__appareils-tag")
-        this.selectUstensilsTag = document.querySelector(".select__ustensiles-tag")
-
     }
     initializeDom() {
         const recipes = document.getElementById(this.id)
@@ -28,7 +23,6 @@ export class BookRecipes {
             recipes.appendChild(element.domItem)
         })
         this.synchroNumberRecipe() 
-
     }
     /* INITIATE SELECT */
     _buildSelect(domEmplacement, tabResult) {
@@ -44,15 +38,14 @@ export class BookRecipes {
 
         return select
     }
+    /*Logical search function*/
     search(entry) {
-        if(this.input.value === "Rechercher une recette, un ingrédient, ...") 
-            entry = this.input.value = ""
-    
         this.refreshSearchTags()
-            
+    
         if(entry.length > 2) {
-            search.Recipes(entry, null, this.recipes)
+            search.recipes(entry, null, this.recipes)
         }
+
         this.closeAllSelect()
     
         this.refreshDisplay()
@@ -70,7 +63,7 @@ export class BookRecipes {
 
         tags.forEach(element => {
             const selectName = element.getAttribute("data-select")
-            search.Recipes(element.textContent.toLowerCase(), selectName, this.recipes)   
+            search.recipes(element.textContent.toLowerCase(), selectName, this.recipes)   
         })
     }
     /* SELECT SEARCH MANAGEMENT */
@@ -93,13 +86,13 @@ export class BookRecipes {
     }
     refreshSelect() {
         this.selectIngredients.domItemList.forEach(element => {
-            element.setAttribute("data-display", search.Ingredients(element.firstChild.textContent, this.recipes)) 
+            element.setAttribute("data-display", search.ingredients(element.firstChild.textContent, this.recipes)) 
         })
         this.selectAppliance.domItemList.forEach(element => {
-            element.setAttribute("data-display", search.Appareils(element.firstChild.textContent, this.recipes)) 
+            element.setAttribute("data-display", search.appareils(element.firstChild.textContent, this.recipes)) 
         })
         this.selectUstensils.domItemList.forEach(element => {
-            element.setAttribute("data-display", search.Ustensils(element.firstChild.textContent, this.recipes)) 
+            element.setAttribute("data-display", search.ustensils(element.firstChild.textContent, this.recipes)) 
         })
     }
     /* Number recipe Management */

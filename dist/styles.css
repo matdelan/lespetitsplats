@@ -165,6 +165,7 @@ header {
     padding-left: 30px; }
   .header__subcontent-searchicon {
     background-color: black;
+    color: #EBEBEB;
     padding: 8px;
     z-index: 1;
     font-size: 1.3em;

@@ -1,6 +1,5 @@
 /* TAG INFORMATION */
 export function _addEvents(book) {
-    console.log(book)
     /* Input */
     book.input.addEventListener("input", (elem) => {
         const entry = elem.target.value.toLowerCase()
