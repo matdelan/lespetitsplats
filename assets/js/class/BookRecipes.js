@@ -43,7 +43,7 @@ export class BookRecipes {
         this.refreshSearchTags()
     
         if(entry.length > 2) {
-            search.recipes(entry, null, this.recipes)
+            search.recipes(entry, "for", this.recipes)
         }
 
         this.closeAllSelect()
