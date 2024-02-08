@@ -22,7 +22,8 @@ export class BookRecipes {
         this.recipes.forEach(element => {
             recipes.appendChild(element.domItem)
         })
-        this.synchroNumberRecipe() 
+
+        this.search(this.input.value) 
     }
     /* INITIATE SELECT */
     _buildSelect(domEmplacement, tabResult) {
@@ -50,6 +51,7 @@ export class BookRecipes {
     
         this.refreshDisplay()
         this.refreshSelect()
+
         this.synchroNumberRecipe()
     }
     refreshSearchTags() {

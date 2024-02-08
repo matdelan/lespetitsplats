@@ -50,7 +50,6 @@ function loopForEach(recipes, entry) {
         }
     });
 }
-
 function loopFor(recipes, entry) {
     let bool = false;
     for(let i=0; i<recipes.length; i++) {

@@ -185,6 +185,9 @@ export class Select {
     }
     search(string) {
         this.domItemList.forEach(element => {
+            if((element.getAttribute("data-display") === "true") && (element.style.display === "none")) {
+                element.style.display = "flex"
+            }
             if(element.style.display === "flex") {
                 if(!element.firstChild.textContent.includes(string)) {
                     element.style.display = "none"
@@ -193,16 +196,6 @@ export class Select {
         })
         this.checkLastElem()
     }
-    refreshSearch() {
-        this.domItemList.forEach(element => {
-            element.style.display = "flex" 
-            if(element.style.borderBottomRightRadius === "10px") {
-                element.style.borderBottomRightRadius = null
-                element.style.borderBottomLeftRadius = null
-            }
-        })
-    }
-
     _addEvent() {
         /* input Change */
         this.input.addEventListener("input", (elem) => {
