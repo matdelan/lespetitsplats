@@ -2,7 +2,6 @@ import * as classRecipe from "./Recipe"
 import * as utilitySelect from "../utility/select"
 import * as search from "../home/search"
 
-
 export class BookRecipes {
     
     constructor(jsonData, id) {
@@ -16,6 +15,7 @@ export class BookRecipes {
         this.selectIngredients = this._buildSelect(".select__ingredients", search.getIngredientsArray(this.recipes))
         this.selectAppliance = this._buildSelect(".select__appareils", search.getApplianceArray(this.recipes))
         this.selectUstensils = this._buildSelect(".select__ustensiles", search.getUstensilsArray(this.recipes))
+
     }
     initializeDom() {
         const recipes = document.getElementById(this.id)
@@ -44,7 +44,7 @@ export class BookRecipes {
         this.refreshSearchTags()
     
         if(entry.length > 2) {
-            search.recipes(entry, null, this.recipes)
+            search.recipes(entry, "for", this.recipes)
         }
 
         this.closeAllSelect()
@@ -54,12 +54,15 @@ export class BookRecipes {
 
         this.synchroNumberRecipe()
     }
-    refreshSearchTags() {
-        //Controle tous les tags: reinitialise la recherche et applique une recherche sur les tags restant
+    reinitDisplay() {
         this.recipes.forEach(element => {
             if(!element.display)
                 element.display = true
         })
+    }
+    refreshSearchTags() {
+        //Controle tous les tags: reinitialise la recherche et applique une recherche sur les tags restant
+        this.reinitDisplay()
 
         const tags = document.querySelectorAll(".select__tag-item")
 
